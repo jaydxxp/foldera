@@ -10,7 +10,13 @@ import mcpRoutes from "./routes/mcp.route.js";
 
 export const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://foldera.vercel.app",
+    credentials: true,
+  }),
+);
+
 app.use(express.json());
 app.use(cookieParser());
 
