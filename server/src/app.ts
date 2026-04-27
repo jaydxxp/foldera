@@ -10,12 +10,7 @@ import mcpRoutes from "./routes/mcp.route.js";
 
 export const app = express();
 
-app.use(
-  cors({
-    origin: env.clientUrl,
-    credentials: true,
-  }),
-);
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
