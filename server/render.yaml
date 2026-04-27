@@ -1,0 +1,50 @@
+services:
+  - type: web
+    name: foldera-api
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: PORT
+        value: 10000
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: CLIENT_URL
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+
+  - type: cron
+    name: foldera-api-keepalive
+    runtime: node
+    rootDir: server
+    plan: starter
+    schedule: "*/10 * * * *"
+    buildCommand: npm install
+    startCommand: node scripts/ping-health.mjs
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: API_HOSTPORT
+        fromService:
+          type: web
+          name: foldera-api
+          property: hostport
+      - key: HEALTHCHECK_PATH
+        value: /api/health

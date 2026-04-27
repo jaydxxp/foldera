@@ -1,15 +1,29 @@
-# server
+# Foldera API
 
-To install dependencies:
+Express + MongoDB backend for the Foldera drive-like app.
 
-```bash
-bun install
-```
-
-To run:
+## Scripts
 
 ```bash
-bun run index.ts
+npm install
+npm run dev
 ```
 
-This project was created using `bun init` in bun v1.2.23. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+Build for production:
+
+```bash
+npm run build
+npm start
+```
+
+## Environment
+
+Copy `.env.example` to `.env` and fill in:
+
+- `MONGODB_URI`
+- `JWT_SECRET`
+- `JWT_EXPIRES_IN`
+- `CLIENT_URL`
+- `CLOUDINARY_CLOUD_NAME`
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
